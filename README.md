@@ -1,5 +1,5 @@
-# The Collatz hypertansis
-The repository contains a class calculating the Collatz hypothesis.
+# The Collatz hypothesis
+The repository contains a class calculating the Collatz Hypothesis.
 ### Examples:
 1.
 ``` 

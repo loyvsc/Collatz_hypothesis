@@ -1,23 +1,35 @@
 ﻿namespace Hypothesis
-{
+{    
     /// <summary>
     /// The Collatz hypothesis
     /// </summary>
     public class Collatz : IDisposable
     {
-        public uint Number { get; set; } = 0;
+        private uint number = 0;
+        public uint Number
+        {
+            get => number;
+            set
+            {
+                if (value == 0)
+                {
+                    throw new ArgumentOutOfRangeException("Number");
+                }
+                number = value;
+            }
+        }
         public int OperationsCount { get; private set; } = 0;
-        public bool IsDisposed = false;
+        private bool isDisposed = false;
 
         public Collatz() { }
 
         /// <param name="number">Number</param>
-        /// <exception cref="ArgumentException">Occurs when passing the number argument equal to 0</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Occurs when passing the number argument equal to 0</exception>
         public Collatz(uint number)
         {
-            if (number <= 0)
+            if (number == 0)
             {
-                throw new ArgumentException("Number can not be 0");
+                throw new ArgumentOutOfRangeException("Collatz");
             }
             Number = number;
         }
@@ -45,9 +57,13 @@
         /// <exception cref="ObjectDisposedException">Occurs when trying to use after finalizing</exception>
         public void Calculate()
         {
-            if (IsDisposed)
+            if (isDisposed)
             {
                 throw new ObjectDisposedException("Collatz");
+            }
+            if (Number == 0)
+            {
+                throw new ArgumentNullException("Number");
             }
             while (Number != 1)
             {
@@ -61,16 +77,16 @@
         /// </summary>
         /// <param name="number">Number</param>
         /// <exception cref="ObjectDisposedException">Occurs when trying to use after finalizing</exception>
-        /// <exception cref="ArgumentException">Occurs when passing an argument equal to zero</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Occurs when passing an argument equal to zero</exception>
         public void Calculate(uint number)
         {
-            if (IsDisposed)
+            if (isDisposed)
             {
                 throw new ObjectDisposedException("Collatz");
             }
             if (number == 0)
             {
-                throw new ArgumentException("Number can not be 0");
+                throw new ArgumentOutOfRangeException("Collatz");
             }
             Number = number;
             while (Number != 1)
@@ -82,7 +98,7 @@
 
         public override string ToString()
         {
-            if (IsDisposed)
+            if (isDisposed)
             {
                 throw new ObjectDisposedException("Collatz");
             }
@@ -100,7 +116,7 @@
 
         protected virtual void Dispose(bool disposing)
         {
-            if (IsDisposed)
+            if (isDisposed)
             {
                 return;
             }
@@ -109,7 +125,7 @@
                 Number = 0;
                 OperationsCount = 0;
             }
-            IsDisposed = true;
+            isDisposed = true;
         }
     }
 }

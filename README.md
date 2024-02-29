@@ -11,6 +11,6 @@ instance.Calculate(4);
 Hypothesis.Collatz instance = new Hypothesis.Collatz(4);
 instance.Calculate();
 ```
-### Propertys:
+### Properties:
 - Number — initial number (n)
 - OperationsCount — number of performed operations (only get)
